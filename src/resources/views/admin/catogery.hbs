@@ -1,0 +1,158 @@
+<div class="mt-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/api/v1/admin/index">Admin Action</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Quản lý danh mục sản phẩm</li>
+        </ol>
+    </nav>
+    <div class="d-flex justify-content-between">
+        <h3>Quản lý danh mục sản phẩm</h3>
+        <button type="button" class="btn btn-secondary btn-sm text-black border-0" style="background-color: #ffc107
+;" data-id="" data-bs-toggle="modal" data-bs-target="#create_modal"><i class="bi bi-pencil px-2"></i>Thêm
+            danh
+            mục</button>
+        {{!-- model --}}
+
+        <div class="modal fade" id="create_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Thêm danh mục sản phẩm</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="createCategoryForm" method="POST" enctype="multipart/form-data">
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label fw-bold">Tên danh mục</label>
+                                <input type="text" class="form-control" id="nameCategory"
+                                    placeholder="Nhập tên danh mục" name="name">
+                            </div>
+                            <div class="mb-3">
+                                <label for="formFile" class="form-label fw-bold">Thêm ảnh danh mục</label>
+                                <input class="form-control" type="file" id="formFile" name="formFile">
+                            </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary fw-bold bg-light text-black "
+                            data-bs-dismiss="modal"><i class="bi bi-x-circle"></i> HỦY BỎ </button>
+                        <button type="submit" class="btn btn-primary fw-bold "><i class="bi bi-check-circle"></i> CẬP
+                            NHẬT</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <img src="https://cdn.tgdd.vn/Brand/1/samsungnew-220x48-1.png" class="img-fluid" alt="...">
+    {{!-- <img src="/formFile-1713982163877.png" class="img-fluid" alt=""> --}}
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Tên danh mục</th>
+                <th class="text-center" scope="col">Hình Ảnh</th>
+                <th scope="col">Ngày tạo</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each category}}
+            <tr>
+                <th scope="row">{{sum @index 1}}</th>
+                <td>{{this.name}}</td>
+                <td>
+                    <div class="text-center">
+                        <img src="/{{this.image}}" class="rounded" alt="...">
+                    </div>
+                </td>
+                <td>{{this.createdAt}}</td>
+                <td>
+                    <a href="/api/v1/admin/category/{{this._id}}/edit"><button type="button"
+                            class="btn btn-primary btn-sm">Sửa</button></a>
+                    <button type="button" class="btn btn-danger btn-sm" data-id="{{this._id}}" data-bs-toggle="modal"
+                        data-bs-target="#delete_modal">Xóa</button>
+                </td>
+
+            </tr>
+            {{else}}
+            <tr>
+                <td colspan="5" class="text-center">
+                    Bạn chưa có danh mục sản phẩm nào.
+                    {{!-- <a href="/products/create">Dang san pham</a> --}}
+                </td>
+            </tr>
+            {{/each}}
+
+        </tbody>
+    </table>
+</div>
+<div id="delete_modal" class="modal" tabindex="-1">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Xác nhận xóa</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Xóa danh mục</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button id="btn-delete-course" type="button" class="btn btn-danger">Delete</button>
+            </div>
+        </div>
+        {{!-- <div class="modal-footer">
+
+            <button id="btn-delete-course" type="button" class="btn btn-danger">Delete</button>
+        </div> --}}
+    </div>
+</div>
+</div>
+<form name="delete-course-form" method="POST"></form>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var categoryId;
+        const createCategoryForm = document.getElementById('createCategoryForm');
+        const btnDelCourse = document.getElementById('btn-delete-course');
+        const exampleModal = document.getElementById('delete_modal');
+        var deleteForm = document.forms['delete-course-form'];
+        if (exampleModal) {
+            exampleModal.addEventListener('show.bs.modal', function (event) {
+                const button = event.relatedTarget
+                categoryId = button.getAttribute('data-id')
+                console.log(categoryId);
+            });
+            // When delete course btn clicked
+        }
+        btnDelCourse.onclick = function () {
+            deleteForm.action = '/api/v1/admin/' + categoryId + '?_method=DELETE';
+            deleteForm.submit();
+        }
+        createCategoryForm.addEventListener('submit', async function (event) {
+            event.preventDefault(); // Ngăn chặn form submit mặc định
+
+            const formData = new FormData(createCategoryForm); // Tạo đối tượng FormData để chứa dữ liệu form
+            try {
+                const response = await fetch('/api/v1/admin/createCtr', {
+                    method: 'POST',
+                    body: formData, // Gửi dữ liệu form dưới dạng FormData
+                });
+
+                if (response.ok) {
+                    // Xử lý kết quả khi gửi thành công
+                    alert('Danh mục sản phẩm đã được tạo thành công!');
+                    window.location.reload(); // Tải lại trang sau khi tạo thành công
+                } else {
+                    // Xử lý kết quả khi gửi không thành công
+                    const responseData = await response.json();
+                    alert(responseData.message); // Hiển thị thông báo lỗi từ server
+                }
+            } catch (error) {
+                // Xử lý lỗi khi gửi yêu cầu
+                console.error('Error:', error);
+                alert('Something went wrong. Please try again.');
+            }
+        })
+
+    });
+
+</script>

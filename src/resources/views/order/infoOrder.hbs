@@ -1,0 +1,159 @@
+<div class="mt-4 box-order">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/api/v1/users/{{orders.user}}/profile">Thông tin đơn hàng</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Chi tiết đơn hàng</li>
+        </ol>
+    </nav>
+    <div class="box-main">
+        <div class="box-heading">
+            <div class="box-title">
+                <h2>Chi tiết đơn hàng #{{orders.orderCode}} -
+                    <span class="order-status" data-status={{orders.status}}></span>
+                </h2>
+                <div class="order-date">
+                    <span>Đặt lúc: {{createdAtFormat}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="order-info">
+            <div class="info-box-customer">
+                <div class="info-box-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-person-vcard" viewBox="0 0 16 16">
+                        <path
+                            d="M5 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4m4-2.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5M9 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4A.5.5 0 0 1 9 8m1 2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5" />
+                        <path
+                            d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM1 4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H8.96q.04-.245.04-.5C9 10.567 7.21 9 5 9c-2.086 0-3.8 1.398-3.984 3.181A1 1 0 0 1 1 12z" />
+                    </svg>
+                    <h3>Thông tin đặt hàng</h3>
+                </div>
+                <div class="info-box-body">
+                    <div class="name-receive">
+                        <span>Nguời nhận:</span>
+                        <span>{{orders.name}} - {{orders.phoneNumber}}</span>
+                    </div>
+                    <div class="address-receive">
+                        <span>Địa chỉ mhận hàng:</span>
+                        <span>{{orders.ward}},{{orders.district}},{{orders.province}} </span>
+                    </div>
+                    <div class="date-receive">
+                        <span>Thời gian đặt hàng:</span>
+                        <span>{{createdAtFormat}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cart-info">
+            <section class="section-order">
+                <div class="cart-order">
+                    <div class="table-cart">
+                        <div class="cart-sigle orderCart-info">
+                            <div class="info-box-title">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-info-square-fill" viewBox="0 0 16 16">
+                                    <path
+                                        d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm8.93 4.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2" />
+                                </svg>
+                                <h3>Thông tin sản phẩm</h3>
+                            </div>
+                            {{#each orderDetail}}
+                            <div class="item">
+                                <div class="item-left">
+                                    <div class="item-img">
+                                        <a href=""><img src="/productImgs/{{this.image}}" class="rounded costum-img"
+                                                alt="..."></a>
+                                    </div>
+                                </div>
+                                <div class="item-right">
+                                    <div class="item-info">
+
+                                        <h3>
+                                            {{this.name}}
+                                        </h3>
+                                        <div class="item-quantity">
+                                            <span>Số lượng:</span>
+                                            {{this.quantity}}
+                                        </div>
+                                    </div>
+                                    <div class="item-meta">
+                                        <div class="orderItem-price">
+                                            <span>{{this.price}}₫</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{/each}}
+                        </div>
+                    </div>
+            </section>
+            <hr>
+
+        </div>
+        <div id="deleteButtonContainer" data-id="{{orders._id}}"></div>
+    </div>
+
+</div>
+<form name="cancel-order" method="POST"></form>
+<script>
+    const status = document.querySelector('.order-status')
+    const statusData = status.getAttribute('data-status');
+    console.log(statusData)
+    switch (statusData) {
+        case 'pending':
+            status.innerHTML += '<span class="badge text-bg-secondary">Chờ xét duyệt</span>';
+            break;
+        case 'completed':
+            status.innerHTML += '<span class="badge text-bg-primary">Dã duyệt</span>';
+            break;
+        case 'cancelled':
+            status.innerHTML += '<span class="badge text-bg-danger">Đã hủy</span>';
+            break;
+        case 'finish':
+            status.innerHTML += '<span class="badge text-bg-success">Đã nhận hàng</span>';
+            break;
+        default:
+
+    }
+
+    if (statusData == 'pending') {
+        const deleteButtonContainer = document.getElementById('deleteButtonContainer');
+        console.log(deleteButtonContainer)
+        const deleteButton = document.createElement('button');
+        deleteButton.type = 'button'
+        deleteButton.textContent = 'Hủy đơn hàng';
+        deleteButton.classList.add('delete-button');
+        deleteButton.classList.add('btn');
+        deleteButton.classList.add('btn-outline-danger');
+        var orderId;
+        var deleteForm = document.forms['cancel-order'];
+
+        orderId = deleteButtonContainer.getAttribute('data-id')
+        console.log(orderId)
+        deleteButton.onclick = function () {
+            deleteForm.action = '/api/v1/order/customer/' + orderId + '?status=' + statusData + '&_method=PUT';
+            deleteForm.submit()
+        }
+        deleteButtonContainer.appendChild(deleteButton);
+    }
+    if (statusData == 'cancelled') {
+        const deleteButtonContainer = document.getElementById('deleteButtonContainer');
+        console.log(deleteButtonContainer)
+        const deleteButton = document.createElement('button');
+        deleteButton.type = 'button'
+        deleteButton.textContent = 'Mua lại';
+        deleteButton.classList.add('delete-button');
+        deleteButton.classList.add('btn');
+        deleteButton.classList.add('btn-outline-primary');
+        var orderId;
+        var deleteForm = document.forms['cancel-order'];
+
+        orderId = deleteButtonContainer.getAttribute('data-id')
+        console.log(orderId)
+        deleteButton.onclick = function () {
+            deleteForm.action = '/api/v1/order/customer/' + orderId + '?status=' + statusData + '&_method=PUT';
+            deleteForm.submit()
+        }
+        deleteButtonContainer.appendChild(deleteButton);
+    }
+</script>

@@ -1,0 +1,109 @@
+<div class="mt-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/api/v1/admin/index">Admin Action</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Quản lý sản phẩm</li>
+        </ol>
+    </nav>
+    <div class="d-flex justify-content-between">
+        <h3>Quản lý sản phẩm</h3>
+        <a href="/api/v1/admin/showCreate" type="button" class="btn btn-secondary btn-sm text-black border-0 align"
+            style="background-color: #ffc107
+;align-content:center"><i class="bi bi-pencil px-2"></i>Thêm
+            sản phẩm</a>
+        {{!-- model --}}
+
+
+    </div>
+    <select class="form-select mt-3 w-auto" aria-label="Default select example">
+        <option selected>Phân loại sản phẩm</option>
+        {{#each category}}
+        <option value="">{{this.name}}</option>
+        {{/each}}
+    </select>
+    <table class="table table-hover mt-4">
+        <thead>
+            <tr>
+
+                <th scope="col">Tên sản phẩm</th>
+                <th class="text-center" scope="col">Hình Ảnh</th>
+                <th scope="col">Giá</th>
+                <th scope="col">Ngày tạo</th>
+                <th scope="col " class="">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each products}}
+            <tr>
+
+                <td>{{this.name}}</td>
+                <td>
+                    <div class="text-center ">
+                        <img src="/productImgs/{{this.image}}" class="rounded costum-img" alt="...">
+                    </div>
+                </td>
+                <td class="fw-bold">{{this.price}}</td>
+                <td>{{this.createdAt}}</td>
+                <td>
+                    <a href="/api/v1/admin/product/{{this._id}}/edit"><button type="button"
+                            class="btn btn-primary btn-sm">Sửa</button></a>
+                    <button type="button" class="btn btn-secondary btn-sm" data-id="{{this._id}}" data-bs-toggle="modal"
+                        data-bs-target="#delete_modal">Xóa</button>
+                </td>
+
+            </tr>
+            {{else}}
+            <tr>
+                <td colspan="5" class="text-center">
+                    Bạn chưa có danh mục sản phẩm nào.
+                    {{!-- <a href="/products/create">Dang san pham</a> --}}
+                </td>
+            </tr>
+            {{/each}}
+
+        </tbody>
+    </table>
+</div>
+<div id="delete_modal" class="modal" tabindex="-1">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Xác nhận xóa</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Xóa danh mục</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button id="btn-delete-product" type="button" class="btn btn-danger">Delete</button>
+            </div>
+        </div>
+        {{!-- <div class="modal-footer">
+
+            <button id="btn-delete-course" type="button" class="btn btn-danger">Delete</button>
+        </div> --}}
+    </div>
+</div>
+</div>
+<form name="delete-product-form" method="POST"></form>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var productId;
+        const btnDelCourse = document.getElementById('btn-delete-product');
+        const exampleModal = document.getElementById('delete_modal');
+        var deleteForm = document.forms['delete-product-form'];
+        if (exampleModal) {
+            exampleModal.addEventListener('show.bs.modal', function (event) {
+                const button = event.relatedTarget
+                productId = button.getAttribute('data-id')
+                console.log(productId);
+            });
+            // When delete course btn clicked
+        }
+        btnDelCourse.onclick = function () {
+            deleteForm.action = '/api/v1/admin/deleted/' + productId + '?_method=DELETE';
+            deleteForm.submit();
+        }
+    })
+</script>

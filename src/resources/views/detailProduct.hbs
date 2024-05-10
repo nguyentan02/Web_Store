@@ -1,0 +1,231 @@
+<div class="mt-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/api/v1/home/">Admin Action</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Quản lý danh mục sản phẩm</li>
+        </ol>
+    </nav>
+    <div class="productDetail">
+        <div class="product_main d-flex flex-wrap">
+            <div class="product-img-info">
+                <div class="img-scroll">
+                    <img src="/productImgs/{{product.image}}" class="card-img-top" alt="...">
+                </div>
+            </div>
+            <div class="product-ct-info">
+                <div class="info-content">
+                    <div class="product-name">
+                        <h1>{{product.name}}</h1>
+                    </div>
+                    <div class="product-price">
+                        <span class="pro-price">{{product.price}}</span>
+                        <del>d2377</del>
+                    </div>
+                    <div class="product-action">
+                        <div class="action-buy">
+                            <button class="btn btn-danger" id="buy-now" type="submit" data-product-id="{{product._id}}">
+                                <span class="fw-bold text-uppercase">Mua ngay</span>
+                                <span class="subtext">Giao tận nơi hoặc nhận tại cửa hàng</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="main">
+                        <div class="product-desc-short">
+                            <p><span><i class="bi bi-check check-icon"></i>Bảo hành chính hãng 12 tháng. </span></p>
+                            <p><span><i class="bi bi-check check-icon"></i> Hỗ trợ đổi mới trong 30 ngày.</span></p>
+                            <p><span><i class="bi bi-check check-icon"></i> Miễn phí giao hàng toàn quốc.</span></p>
+                        </div>
+                        <hr>
+                        <div class="box-gift">
+                            <div class="box-header">
+                                <h2>Khuyến mãi</h2>
+                            </div>
+                            <div class="box-content">
+                                <ul>
+                                    <li><i class="bi bi-patch-check-fill"></i>Giảm thêm 5% khi mua cùng sản phẩm có giá
+                                        cao
+                                        hơn
+                                        (trừ sản phẩm Apple, sản phẩm giá
+                                        sốc)
+                                    </li>
+                                    <li> <i class="bi bi-patch-check-fill"></i>Giảm giá 1,000,000đ (Không áp dụng Thu cũ
+                                        đổi
+                                        mới)
+                                    </li>
+                                    <li><i class="bi bi-patch-check-fill"></i>Giảm 2% tối đa 500k khi thanh toán qua ví
+                                        Momo
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class=" product-more">
+            <div class=" product-inner">
+                <div class="product-heading">
+                    <h3>Thông tin sản phẩm</h3>
+                </div>
+                <div id="productTable" class=" hide">
+                    <div class="product-wrap">
+                        <h3>Thông số kỹ thuật</h3>
+                    </div>
+                    <div class="scroll-table">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td class="table-success ">Màn hình</td>
+                                    <td>{{product.screen}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="table-success ">Hệ điều hành</td>
+                                    <td>{{product.operatingSystem}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="table-success ">Camera trước</td>
+                                    <td>{{product.rearCamera}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="table-success ">Camera sau</td>
+                                    <td>{{product.frontCamera}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="table-success ">Chip</td>
+                                    <td>{{product.chip}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="table-success ">Ram</td>
+                                    <td>{{product.ram}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="table-success ">Dung lượng lưu trữ</td>
+                                    <td>{{product.storageCapacity}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="table-success ">Sim</td>
+                                    <td>{{product.sim}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="table-success ">Pin,Sạc</td>
+                                    <td>{{product.battery}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="table-success ">Hãng</td>
+                                    <td>{{product.manufacturer}}</td>
+                                </tr>
+
+                                <tr>
+                                    <td class="table-success ">Hỗ trợ mạng</td>
+                                    <td>{{product.networkSup}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="table-success ">Các loại cảm biến</td>
+                                    <td>{{product.sensor}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="table-success ">Chất liệu</td>
+                                    <td>{{product.material}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="table-success ">Thời điểm ra mắt</td>
+                                    <td>{{product.since}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+                <button id="showMoreButton" class="btn mt-2 btn-show">Hiển thị thêm<i
+                        class="bi bi-chevron-down"></i></button>
+            </div>
+            <div class="product-intro">
+                <h3>Sản phẩm tương tự</h3>
+                <div class="product-warp2">
+                    <div class="list-products">
+                        {{#each ramdom}}
+                        <div class="card mb-3 border-0" style="max-width: 540px;">
+                            <div class="row g-0">
+                                <div class="col-md-4">
+                                    <img src="/productImgs/{{this.image}}" class="img-fluid rounded-start" alt="...">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <a href="/api/v1/{{this._id}}/detail">
+                                            <h5 class="card-title">{{this.name}}</h5>
+                                        </a>
+                                        <div class="proloop-price">
+                                            <span class="proloop-price-highlight">
+                                                {{this.price}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const showMoreButton = document.getElementById('showMoreButton');
+        const productTable = document.getElementById('productTable');
+        function isUserLoggedIn() {
+            // Kiểm tra xem cookie có tồn tại không
+            const isLoggedIn = localStorage.getItem('username');
+
+            if (!isLoggedIn)
+                return false
+            else return true
+        }
+        console.log(isUserLoggedIn())
+        const buyButtons = document.getElementById('buy-now');
+        buyButtons.addEventListener('click', async function (e) {
+            e.preventDefault();
+
+            if (!isUserLoggedIn()) {
+                const modal = new bootstrap.Modal(document.getElementById('exampleModalToggle'));
+                modal.show();
+            } else {
+                const productId = buyButtons.getAttribute('data-product-id')
+                const userId = localStorage.getItem('userId')
+                console.log(productId)
+                try {
+                    const response = await fetch('/api/v1/cart/addToCart/' + productId, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ productId, userId })
+
+                    });
+                    if (!response.ok) {
+                        throw new Error('Could not add product to cart');
+                    }
+
+                    alert('Sản phẩm đã được thêm vào giỏ hàng');
+
+
+                } catch (error) {
+                    console.error(error);
+                }
+            }
+            showMoreButton.addEventListener('click', function () {
+                productTable.classList.toggle('hide');
+                if (productTable.classList.contains('hide')) {
+                    showMoreButton.innerText = 'Hiển thị thêm';
+                } else {
+                    showMoreButton.innerText = 'Thu gọn';
+                }
+            });
+        })
+    })
+</script>

@@ -1,0 +1,14 @@
+<div class="mt-4">
+    <form method="POST" action="/api/v1/admin/category/{{category._id}}?_method=PUT" enctype="multipart/form-data">
+        <div class=" mb-3">
+            <label for="exampleFormControlInput1" class="form-label fw-bold">Tên danh mục</label>
+            <input type="text" class="form-control" id="nameCategory" placeholder="Nhập tên danh mục" name="name"
+                value="{{category.name}}">
+        </div>
+        <div class="mb-3">
+            <label for="formFile" class="form-label fw-bold">Thêm ảnh danh mục</label>
+            <input class="form-control" type="file" id="formFile" name="formFile">
+        </div>
+        <button type="submit">Save Changes</button>
+    </form>
+</div>

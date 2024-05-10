@@ -1,0 +1,179 @@
+<div class="mt-4">
+    <div class="container-account">
+        <div class="row">
+            <div class="col-4 account-info">
+                <div class="left-sidebar-avatar">
+                    <div class="icon-acc">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-person-circle" viewBox="0 0 16 16">
+                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                            <path fill-rule="evenodd"
+                                d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
+                        </svg>
+                    </div>
+                    <div class="info-acc">
+                        {{user.username}}
+                    </div>
+                </div>
+                <ul class="left-sidebar-list">
+                    <li class="tab current" data-tab="profile"><a href="">
+                            <span class="icon-info"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                                    <path
+                                        d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
+                                </svg></span>
+                            <span>Thông tin tài khoản</span>
+                        </a></li>
+                    <li class="tab" data-tab="order"><a href="">
+                            <span class="icon-info"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    fill="currentColor" class="bi bi-bag-check" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M10.854 8.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708 0" />
+                                    <path
+                                        d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z" />
+                                </svg></span>
+                            <span>Thông tin đơn hàng</span>
+                        </a></li>
+                    <li class="tab" data-tab="like"><a href="">
+                            <span class="icon-info"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    fill="currentColor" class="bi bi-bag-heart" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0M14 14V5H2v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1M8 7.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                                </svg></span>
+                            <span>Sản phẩm yêu thích</span>
+                        </a></li>
+                    <li class="tab"><a href="">
+                            <span class="icon-info"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z" />
+                                    <path fill-rule="evenodd"
+                                        d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z" />
+                                </svg></span>
+                            <span>Đăng xuất</span>
+                        </a></li>
+                </ul>
+            </div>
+            <div class="col-8 account-tab">
+                <div class="right-main">
+                    <div class="right-main-box box-profile ">
+                        <h3>Thông tin tài khoản</h3>
+                        <form method="POST" action="/api/v1/users/{{user._id}}?_method=PUT">
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Tên người dùng</label>
+                                <input type="text" class="form-control" value="{{user.username}}" id="username"
+                                    name="username">
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <div class="text-primary">{{user.email}}</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <div class="text-primary">{{user.email}}</div>
+                            </div>
+                            <button class="btn btn-danger" type="submit">Lưu thay đổi</button>
+                        </form>
+                    </div>
+                    <div class="right-main-box box-order d-none">
+                        <h3>Tất cả đơn hàng</h3>
+                        <hr>
+                        <div class="cart-order">
+                            <div class="table-cart">
+                                <div class="cart-sigle">
+                                    {{#each orders}}
+                                    <div class="item d-flex ">
+                                        <div class="code-title">
+                                            <p>Mã đơn hàng:</p>
+                                        </div>
+                                        <div class="code-order ">
+                                            <h4>{{this.orderCode}}</h4>
+                                        </div>
+                                        <div class="total-orderCart">
+                                            <span>Tổng tiền:</span>
+                                            <span>{{this.totalPrice}}</span>
+                                        </div>
+                                        <div class="order-view ms-auto p-2">
+                                            <a href="/api/v1/order/detailOrder/{{this._id}}" data-id="{{this._id}}">Xem
+                                                chi tiết</a>
+                                        </div>
+                                    </div>
+
+                                    <div class="Order-status">
+                                        <span>Trạng thái:</span>
+                                        <div class="status-btn" data-status="{{this.status}}">
+                                        </div>
+                                    </div>
+
+                                    <hr>
+                                    {{else}}
+                                    <div class="expanded-text">
+                                        Giỏ hàng của bạn đang trống
+                                        <p class="link-continue">
+                                            <a href="/api/v1/home" class="button"> Tiếp tục mua hàng</a>
+                                        </p>
+                                    </div>
+                                    {{/each}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="right-main-box  box-like d-none">
+                    <h3>Thông tin tài khoản</h3>
+                    <p>tes3</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</div>
+<script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+
+        const statusAll = document.querySelectorAll('.status-btn')
+
+        statusAll.forEach(status => {
+            const statusData = status.getAttribute('data-status');
+            switch (statusData) {
+                case 'pending':
+                    status.innerHTML += '<span class="badge text-bg-secondary">Chờ xét duyệt</span>';
+                    break;
+                case 'completed':
+                    status.innerHTML += '<span class="badge text-bg-primary">Dã duyệt</span>';
+                    break;
+                case 'cancelled':
+                    status.innerHTML += '<span class="badge text-bg-danger">Đã hủy</span>';
+                    break;
+                case 'finish':
+                    status.innerHTML += '<span class="badge text-bg-success">Dã nhận hàng</span>';
+                    break;
+                default:
+
+            }
+        })
+
+        const infoTabs = document.querySelectorAll('.tab');
+        const rightMainLeft = document.querySelectorAll('.right-main-box');
+        infoTabs.forEach(tab => {
+            tab.addEventListener('click', function (event) {
+                event.preventDefault();
+                // Lấy data-tab của thẻ li được click
+                const tabId = tab.getAttribute('data-tab');
+                console.log(tabId)
+                // Ẩn tất cả các right-main-box
+                rightMainLeft.forEach(box => {
+                    box.classList.add('d-none');
+                });
+
+                // Hiển thị right-main-box tương ứng với data-tab
+                const selectedBox = document.querySelector(`.box-${tabId}`);
+                if (selectedBox) {
+                    selectedBox.classList.remove('d-none');
+                }
+            });
+        });
+    })
+</script>

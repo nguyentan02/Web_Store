@@ -1,0 +1,135 @@
+<div class="mt-4">
+    <form method="POST" action="/api/v1/admin/products/{{product._id}}?_method=PUT" enctype="multipart/form-data">
+        <div class="mt-4">
+            <h3>Thêm sản phẩm mới</h3>
+            <div class="row">
+                <div class="input-group mb-3 col ">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Tên sản phẩm</span>
+                    <input type="text" class="form-control" aria-label="Sizing example input"
+                        aria-describedby="inputGroup-sizing-default" name="name" value="{{product.name}}">
+                </div>
+                <div class="mb-3 col">
+                    <select class="form-select w-auto " name="category" aria-label="Default select example">
+                        <option selected>Phân loại sản phẩm</option>
+                        {{#each category}}
+                        <option value="{{this._id}}">{{this.name}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <div class="input-group mb-3 col">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Giá sản phẩm</span>
+                    <input type="text" class="form-control" aria-label="Sizing example input"
+                        aria-describedby="inputGroup-sizing-default" name="price" value="{{product.price}}">
+                </div>
+            </div>
+            <div class="row">
+                <h6>Nhập thông tin chi tiết</h6>
+                <div class="col">
+
+                    <div></div>
+                    <div class="input-group input-group-sm mb-3 ">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Màn hình</span>
+                        <input type="text" class="form-control" aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-default" name="screen" value="{{product.screen}}">
+                    </div>
+                    <div class="input-group input-group-sm mb-3 ">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Hệ điều hành</span>
+                        <input type="text" class="form-control" aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-default" name="operatingSystem"
+                            value="{{product.operatingSystem}}">
+                    </div>
+                    <div class="input-group input-group-sm mb-3 ">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Camera sau</span>
+                        <input type="text" class="form-control" aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-default" name="rearCamera"
+                            value="{{product.rearCamera}}">
+                    </div>
+                    <div class="input-group input-group-sm mb-3 ">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Camera trước</span>
+                        <input type="text" class="form-control" aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-default" name="frontCamera"
+                            value="{{product.frontCamera}}">
+                    </div>
+                    <div class="input-group input-group-sm mb-3 ">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Chip</span>
+                        <input type="text" class="form-control" aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-default" name="chip" value="{{product.chip}}">
+                    </div>
+                    <div class="input-group input-group-sm mb-3 ">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Ram</span>
+                        <input type="text" class="form-control" aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-default" name="ram" value="{{product.chip}}">
+                    </div>
+                    <div class="input-group input-group-sm mb-3 ">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Dung lượng lưu trữ</span>
+                        <input type="text" class="form-control" aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-default" name="storageCapacity"
+                            value="{{product.storageCapacity}}">
+                    </div>
+                    <div class="input-group input-group-sm mb-3 ">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Sim</span>
+                        <input type="text" class="form-control" aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-default" name="sim" value="{{product.sim}}">
+                    </div>
+                    <div class="input-group input-group-sm mb-3 ">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Pin,Sạc</span>
+                        <input type="text" class="form-control" aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-default" name="battery" value="{{product.battery}}">
+                    </div>
+                    <div class="input-group input-group-sm mb-3 ">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Hãng</span>
+                        <input type="text" class="form-control" aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-default" name="manufacturer"
+                            value="{{product.manufacturer}}">
+                    </div>
+                    <div class="input-group input-group-sm mb-3 ">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Hỗ trợ mạng</span>
+                        <input type="text" class="form-control" aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-default" name="networkSup"
+                            value="{{product.networkSup}}">
+                    </div>
+                    <div class="input-group input-group-sm mb-3 ">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Các loại cảm biến</span>
+                        <input type="text" class="form-control" aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-default" name="sensor" value="{{product.sensor}}">
+                    </div>
+                    <div class="input-group input-group-sm mb-3 ">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Chất liệu</span>
+                        <input type="text" class="form-control" aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-default" name="material" value="{{product.material}}">
+                    </div>
+                    <div class="input-group input-group-sm mb-3 ">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Thời điểm ra mắt</span>
+                        <input type="text" class="form-control" aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-default" name="since" value="{{product.since}}">
+                    </div>
+
+                </div>
+
+                <div class="col">
+                    <div class="input-group mb-3 ">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Mã sản phẩm</span>
+                        <input type="text" class="form-control" aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-default" name="code" value="{{product.code}}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="formFile" class="form-label fw-bold">Thêm ảnh sản phẩm</label>
+                        <input class="form-control" type="file" id="formFile" name="formFile">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary fw-bold bg-light text-black mx-3 btn-cancel"
+                    data-bs-dismiss="modal" onclick="goBack()"><i class="bi bi-x-circle"></i> HỦY BỎ </button>
+                <button type="submit" class="btn btn-primary fw-bold "><i class="bi bi-check-circle"></i> CẬP
+                    NHẬT</button>
+            </div>
+        </div>
+
+    </form>
+</div>
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>

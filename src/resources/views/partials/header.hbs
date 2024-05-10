@@ -1,0 +1,279 @@
+<nav class="navbar navbar-expand-xl" style="background-color: #E30019;" s>
+    <div class=" container-xl ">
+        <a class=" navbar-brand" href="/api/v1/home">Navbar</a>
+        <div class="collapse navbar-collapse navbar-main" id="navbarTogglerDemo03">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active text-white" aria-current="page" href="#"> <i class="bi bi-list"></i>Danh
+                        mục</a>
+                </li>
+                <form class="d-flex ms-5">
+                    <input class="form-control me-2" type="search" placeholder="Bạn muốn tìm gì?" aria-label="Search">
+                    <button class="btn btn-outline-light" type="submit">Search</button>
+                </form>
+                <li class="nav-item ms-3">
+                    <a class="nav-link text-white" href="#"> <i class="bi bi-headset"></i>Hotline 1900 3979</a>
+                </li>
+                <li class="nav-item ms-3">
+                    <button class="nav-link text-white showCart"><i class="bi bi-cart"></i>Giỏ
+                        hàng</button>
+
+                </li>
+            </ul>
+        </div>
+        <span class="navbar-text text-white ms-auto">
+            {{!-- {{#if name}}
+            <div class="dropdown">
+
+                <button class="btn btn-danger" type="button">
+                    <i class="bi bi-person"></i>
+                    Xin chào, <br> {{name}}!
+                </button>
+                <ul class="dropdown-menu ">
+                    <li><a class=" dropdown-item btn btn-primary" href="users/edit" role="button">Thông tin tài
+                            khoản</a></li>
+                    <li><button class="dropdown-item" type="button">Another action</button></li>
+                    <li><button class="dropdown-item" id="logoutButton" type="button"><i
+                                class="bi bi-box-arrow-right"></i>Đăng xuất
+                        </button></li>
+                </ul>
+            </div>
+            {{else }}
+            <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                Đăng nhập
+            </button>
+            {{/if}} --}}
+        </span>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
+            tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalToggleLabel">ĐĂNG NHẬP HOẶC TẠO TÀI KHOẢN</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="login-form">
+                            <form id="loginForm">
+
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email </label>
+                                    <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="password">
+                                </div>
+                                <button type="submit" id="btn-submit" class="btn btn-danger w-100 mb-3 ">Login</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <span class="">Bạn chưa có tài khoản ? <a href="" class="pe-auto text-blue"
+                                data-bs-target="#exampleModalToggle2" data-bs-toggle="modal"
+                                data-bs-dismiss="modal">Đăng kí ngay.</a></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2"
+            tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalToggleLabel2">ĐĂNG KÍ TÀI KHOẢN</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="signUpForm">
+                            <div class=" mb-3">
+                                <label for="name" class="form-label">User Name </label>
+                                <input type="text" class="form-control" id="user-name" aria-describedby="username">
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email </label>
+                                <input type="email" class="form-control" id="emailSignUp" aria-describedby="emailHelp">
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="passwordSignUp">
+                            </div>
+                            <div class="mb-3">
+                                <label for="password_confirm" class="form-label">Confirm Password</label>
+                                <input type="password" class="form-control" id="confirm-passwordSignUp">
+                            </div>
+                            <button type="submit" id="submit-up" class="btn btn-danger w-100 mb-3 ">Tạo tài
+                                khoản</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="modal-footer">
+                            <span class="">Bạn đã có tài khoản ? <a href="" class="pe-auto text-blue"
+                                    data-bs-target="#exampleModalToggle" data-bs-toggle="modal"
+                                    data-bs-dismiss="modal">Đăng
+                                    nhập!</a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</nav>
+<form name="showCart-form" method="POST"></form>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+        const loginForm = document.getElementById('loginForm');
+        loginForm.addEventListener('submit', async function (event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            try {
+                const response = await fetch('/api/v1/users/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, password })
+                });
+
+                if (response.ok) {
+
+                    const responseData = await response.json();
+                    localStorage.setItem('username', responseData.username);
+                    localStorage.setItem('userId', responseData.userId);
+                    localStorage.setItem('role', responseData.role)
+                    location.reload();
+                } else {
+
+                    const responseData = await response.json();
+                    alert(responseData.message); // Hiển thị thông báo lỗi
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Something went wrong. Please try again.'); h
+            }
+        }
+        );
+
+        /// SignUP
+        const signUpForm = document.getElementById('signUpForm')
+        signUpForm.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const username = document.getElementById('user-name').value;
+            const email = document.getElementById('emailSignUp').value;
+            const password = document.getElementById('passwordSignUp').value;
+            const confirmPassword = document.getElementById('confirm-passwordSignUp').value;
+            // Kiểm tra xác nhận mật khẩu
+            if (password !== confirmPassword) {
+                alert('Mật khẩu xác nhận không khớp');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/v1/users/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ username, email, password, password_confirm: confirmPassword })
+                });
+
+                if (response.ok) {
+                    alert('Đăng ký thành công!');
+                    const responseData = await response.json();
+                    window.location.href = `/api/v1/users/${responseData.userId}/profile`;
+
+                } else {
+                    const responseData = await response.json();
+                    alert(responseData.message);
+                }
+            } catch (error) {
+                alert('Đã xảy ra lỗi. Vui lòng thử lại.');
+            }
+            console.error('Error:', error);
+        });
+
+
+
+
+        // Navbar username
+        const username = localStorage.getItem('username');
+        const userId = localStorage.getItem('userId');
+        const role = localStorage.getItem(('role'));
+        var showForm = document.forms['showCart-form'];
+        const showCart = document.querySelector('.showCart')
+        showCart.onclick = function () {
+            if (userId) {
+                window.location.href = `/api/v1/cart/showCart?userId=${userId}`;
+            } else {
+                const modal = new bootstrap.Modal(document.getElementById('exampleModalToggle'));
+                modal.show();
+            }
+        }
+        const navbarText = document.querySelector('.navbar-text');
+        if (username && role == 'admin') {
+            navbarText.innerHTML = `
+            <div class="dropdown">
+                <button class="btn btn-danger" type="button">
+                    <i class="bi bi-person"></i>
+                    Xin chào, <br> ${username}!
+                </button>
+                <ul class="dropdown-menu ">
+                    <li><a class=" dropdown-item btn btn-primary" href="/api/v1/users/${userId}/profile" role="button">Thông tin tài khoản</a></li>
+                    <li><a class=" dropdown-item btn btn-primary" href="/api/v1/admin/index" role="button">Admin action</a></li></li>
+                    <li><button class="dropdown-item" id="logoutButton" type="button"><i class="bi bi-box-arrow-right"></i>Đăng xuất</button></li>
+                </ul>
+            </div>`;
+
+        } else if (username) {
+            navbarText.innerHTML = `
+            <div class="dropdown">
+                <button class="btn btn-danger" type="button">
+                    <i class="bi bi-person"></i>
+                    Xin chào, <br> ${username}!
+                </button>
+                <ul class="dropdown-menu ">
+                    <li><a class=" dropdown-item btn btn-primary" href="/api/v1/users/${userId}/profile" role="button">Thông tin tài khoản</a></li>
+                    <li><button class="dropdown-item" id="logoutButton" type="button"><i class="bi bi-box-arrow-right"></i>Đăng xuất</button></li>
+                </ul>
+            </div>`;
+        }
+        else {
+            navbarText.innerHTML = ` <a class="btn btn-danger text-white" data-bs-toggle="modal" href="#exampleModalToggle" role="button">ĐĂNG NHẬP</a>`
+        }
+
+
+
+        const logoutButton = document.getElementById('logoutButton');
+        if (logoutButton) {
+            logoutButton.addEventListener('click', async function () {
+
+                try {
+                    const response = await fetch('/api/v1/users/logout', {
+                        method: 'POST'
+                    });
+                    if (response.ok) {
+                        localStorage.removeItem('username');
+                        localStorage.removeItem('userId');
+                        localStorage.removeItem('role')
+                        window.location.href = '/api/v1/home';
+                    } else {
+                        const responseData = await response.json();
+                        alert(responseData.message);
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('Something went wrong. Please try again.');
+                }
+            });
+        }
+
+
+
+
+    });
+
+
+</script>
