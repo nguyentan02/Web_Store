@@ -16,30 +16,32 @@
         <thead>
             <tr>
                 <th scope="col">Mã đơn hàng</th>
-                <th class="text-center" scope="col">Hình Ảnh</th>
                 <th scope="col">Ngày đặt</th>
                 <th scope="col">Đơn giá</th>
-                <th scope="col " class="">Status</th>
+                <th scope="col">Trạng thái</th>
+                <th scope="col" class="text-center">Hành động</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
             {{#each orders}}
             <tr>
                 <td>{{this.orderCode}}</td>
+                <td>{{this.createdAt}}</td>
+                <td class="fw-bold">{{this.totalPrice}}</td>
                 <td>
-                    <div class="text-center ">
-                        <img src="/productImgs/{{this.image}}" class="rounded costum-img" alt="...">
+                    <div class="Order-status">
+                        <div class="status-btn" data-status="{{this.status}}">
+                        </div>
                     </div>
                 </td>
-                <td class="fw-bold">{{this.price}}</td>
-                <td>{{this.createdAt}}</td>
-                <td>
-                    <a href="/api/v1/admin/product/{{this._id}}/edit"><button type="button"
-                            class="btn btn-primary btn-sm">Sửa</button></a>
-                    <button type="button" class="btn btn-secondary btn-sm" data-id="{{this._id}}" data-bs-toggle="modal"
-                        data-bs-target="#delete_modal">Xóa</button>
-                </td>
+                <td class="action-order text-center" data-id="{{this._id}}" data-status="{{this.status}}">
 
+                </td>
+                <td>
+                    <a href="/api/v1/admin/detailOrderAdmin/{{this._id}}">Xem chi tiết</a>
+
+                </td>
             </tr>
             {{else}}
             <tr>
@@ -49,7 +51,6 @@
                 </td>
             </tr>
             {{/each}}
-
         </tbody>
     </table>
 </div>
@@ -57,11 +58,11 @@
     <div class="modal-dialog ">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Xác nhận xóa</h5>
+                <h5 class="modal-title">Xác nhận hủy</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>Xóa danh mục</p>
+                <p>Hủy đơn hàng</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -75,24 +76,68 @@
     </div>
 </div>
 </div>
-<form name="delete-product-form" method="POST"></form>
+<form name="submit-order" method="POST"></form>
+<form name="cancel-order" method="POST"></form>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        var productId;
-        const btnDelCourse = document.getElementById('btn-delete-product');
-        const exampleModal = document.getElementById('delete_modal');
-        var deleteForm = document.forms['delete-product-form'];
-        if (exampleModal) {
-            exampleModal.addEventListener('show.bs.modal', function (event) {
-                const button = event.relatedTarget
-                productId = button.getAttribute('data-id')
-                console.log(productId);
-            });
-            // When delete course btn clicked
-        }
-        btnDelCourse.onclick = function () {
-            deleteForm.action = '/api/v1/admin/deleted/' + productId + '?_method=DELETE';
-            deleteForm.submit();
-        }
+        const statusAll = document.querySelectorAll('.status-btn')
+        statusAll.forEach(status => {
+            const statusData = status.getAttribute('data-status');
+            switch (statusData) {
+                case 'pending':
+                    status.innerHTML += '<span class="badge text-bg-secondary">Chờ xét duyệt</span>';
+                    break;
+                case 'completed':
+                    status.innerHTML += '<span class="badge text-bg-primary">Đã duyệt</span>';
+                    break;
+                case 'cancelled':
+                    status.innerHTML += '<span class="badge text-bg-danger">Đã hủy</span>';
+                    break;
+                case 'finish':
+                    status.innerHTML += '<span class="badge text-bg-success">Đã nhận hàng</span>';
+                    break;
+                default:
+
+            }
+        })
+
+        const actionOrders = document.querySelectorAll('.action-order');
+        actionOrders.forEach(actionOrder => {
+            const status = actionOrder.getAttribute('data-status');
+            const orderId = actionOrder.getAttribute('data-id');
+            if (status === 'pending') {
+                // create button submit
+                const submitButton = document.createElement('button');
+                submitButton.setAttribute('type', 'button');
+                submitButton.classList.add('btn', 'btn-primary', 'btn-sm', 'mx-2');
+                submitButton.textContent = 'Duyệt đơn';
+                submitButton.setAttribute('submit', 'completed')
+                const statusId = submitButton.getAttribute('submit')
+                var submitForm = document.forms['submit-order'];
+                submitButton.onclick = function () {
+                    submitForm.action = '/api/v1/admin/submitOrder/' + orderId + '?status=' + statusId + '&_method=PUT';
+                    submitForm.submit()
+                }
+
+                //create cancel
+                const deleteButton = document.createElement('button');
+                deleteButton.setAttribute('type', 'button');
+                deleteButton.classList.add('btn', 'btn-warning', 'btn-sm');
+                deleteButton.textContent = 'Hủy đơn';
+                deleteButton.setAttribute('data-bs-toggle', 'modal')
+                deleteButton.setAttribute('data-bs-target', '#delete_modal')
+                deleteButton.setAttribute('cancel', 'cancelled')
+                const statusCancel = deleteButton.getAttribute('cancel')
+                const btnCancel = document.getElementById('btn-delete-product')
+                var deleteForm = document.forms['cancel-order'];
+                btnCancel.onclick = function () {
+                    deleteForm.action = '/api/v1/admin/submitOrder/' + orderId + '?status=' + statusCancel + '&_method=PUT';
+                    deleteForm.submit()
+                }
+                actionOrder.appendChild(submitButton);
+                actionOrder.appendChild(deleteButton);
+            }
+
+        })
     })
 </script>

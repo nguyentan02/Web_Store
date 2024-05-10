@@ -4,17 +4,29 @@ const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
 const { mutipleMongooseToObject, mongooseToObject } = require('../../utils/mongoose');
+const formatProductPrices = (products) => {
+    return products.map(product => {
+        product.price = formatPrice(product.price);
+        return product;
+    });
+};
+function formatPrice(price) {
+
+    return price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+}
 
 async function showPoduct(req, res, next) {
 
     try {
         const category = await Category.find({}).lean();
-        const products = await Product.find({}).lean();
+        let products = await Product.find({}).lean();
+        products = formatProductPrices(products);
         res.render("admin/products", { category, products });
     } catch (error) {
         next(error);
     }
 }
+
 async function showCreate(req, res, next) {
     try {
         const category = await Category.find({}).lean();
@@ -125,4 +137,16 @@ async function deleteProduct(req, res, next) {
         .then(() => res.redirect('back'))
         .catch(next)
 }
-module.exports = { showPoduct, createProduct, showCreate, editProduct, updateProduct, deleteProduct }
+
+async function searchProduct(req, res, next) {
+    try {
+        const searchTerm = req.query.searchTerm;
+        let products = await Product.find({ name: { $regex: searchTerm, $options: 'i' } }).lean();
+
+        products = formatProductPrices(products);
+        res.json(products);
+    } catch (error) {
+        next(error);
+    }
+}
+module.exports = { showPoduct, createProduct, showCreate, editProduct, updateProduct, deleteProduct, searchProduct }

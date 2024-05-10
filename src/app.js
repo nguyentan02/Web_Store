@@ -6,12 +6,7 @@ const cors = require('cors')
 const handlebars = require('express-handlebars');
 const cookieParser = require('cookie-parser')
 const session = require('express-session');
-const multer = require('multer');
-const upload = multer();
 
-
-// Use multer middleware to handle form data
-app.use(upload.none());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 const methodOverride = require('method-override')

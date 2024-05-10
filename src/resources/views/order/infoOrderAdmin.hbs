@@ -1,7 +1,7 @@
 <div class="mt-4 box-order">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/api/v1/users/{{orders.user}}/profile">Thông tin đơn hàng</a></li>
+            <li class="breadcrumb-item"><a href="/api/v1/admin/orders">Quản lý đơn hàng</a></li>
             <li class="breadcrumb-item active" aria-current="page">Chi tiết đơn hàng</li>
         </ol>
     </nav>
@@ -92,27 +92,7 @@
         </div>
         <div id="deleteButtonContainer" data-id="{{orders._id}}"></div>
     </div>
-    <div id="delete_modal" class="modal" tabindex="-1">
-        <div class="modal-dialog ">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Xác nhận hủy</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Hủy đơn hàng</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button id="btn-delete-product" type="button" class="btn btn-danger">Delete</button>
-                </div>
-            </div>
-            {{!-- <div class="modal-footer">
 
-                <button id="btn-delete-course" type="button" class="btn btn-danger">Delete</button>
-            </div> --}}
-        </div>
-    </div>
 </div>
 <form name="cancel-order" method="POST"></form>
 <script>
@@ -137,14 +117,7 @@
     }
 
     if (statusData == 'pending') {
-        const deleteButtonContainer = document.getElementById('deleteButtonContainer');
-        console.log(deleteButtonContainer)
-        const deleteButton = document.createElement('button');
-        deleteButton.type = 'button'
-        deleteButton.textContent = 'Hủy đơn hàng';
-        deleteButton.classList.add('delete-button');
-        deleteButton.classList.add('btn');
-        deleteButton.classList.add('btn-outline-danger');
+
         var orderId;
         var deleteForm = document.forms['cancel-order'];
 
@@ -157,36 +130,7 @@
         deleteButtonContainer.appendChild(deleteButton);
     }
     if (statusData == 'cancelled') {
-        const deleteButtonContainer = document.getElementById('deleteButtonContainer');
-        console.log(deleteButtonContainer)
-        const deleteButton = document.createElement('button');
-        deleteButton.type = 'button'
-        deleteButton.textContent = 'Mua lại';
-        deleteButton.classList.add('delete-button');
-        deleteButton.classList.add('btn');
-        deleteButton.classList.add('btn-outline-danger');
-        var orderId;
-        var deleteForm = document.forms['cancel-order'];
 
-        orderId = deleteButtonContainer.getAttribute('data-id')
-        console.log(orderId)
-        deleteButton.onclick = function () {
-            deleteForm.action = '/api/v1/order/customer/' + orderId + '?status=' + statusData + '&_method=PUT';
-            deleteForm.submit()
-        }
-        deleteButtonContainer.appendChild(deleteButton);
-    }
-    if (statusData == 'completed') {
-        const deleteButtonContainer = document.getElementById('deleteButtonContainer');
-        console.log(deleteButtonContainer)
-        const deleteButton = document.createElement('button');
-        deleteButton.type = 'button'
-        deleteButton.textContent = 'Đã nhận được hàng';
-        deleteButton.classList.add('delete-button');
-        deleteButton.classList.add('btn');
-        deleteButton.classList.add('btn-outline-success');
-        deleteButton.setAttribute('data-bs-toggle', 'modal')
-        deleteButton.setAttribute('data-bs-target', '#delete_modal')
         var orderId;
         var deleteForm = document.forms['cancel-order'];
 

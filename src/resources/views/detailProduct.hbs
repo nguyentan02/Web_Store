@@ -1,7 +1,7 @@
 <div class="mt-4">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/api/v1/home/">Admin Action</a></li>
+            <li class="breadcrumb-item"><a href="/api/v1/home/">Trang chủ</a></li>
             <li class="breadcrumb-item active" aria-current="page">Quản lý danh mục sản phẩm</li>
         </ol>
     </nav>
@@ -18,8 +18,7 @@
                         <h1>{{product.name}}</h1>
                     </div>
                     <div class="product-price">
-                        <span class="pro-price">{{product.price}}</span>
-                        <del>d2377</del>
+                        <span class="pro-price">{{price}}</span>
                     </div>
                     <div class="product-action">
                         <div class="action-buy">
@@ -218,14 +217,15 @@
                     console.error(error);
                 }
             }
-            showMoreButton.addEventListener('click', function () {
-                productTable.classList.toggle('hide');
-                if (productTable.classList.contains('hide')) {
-                    showMoreButton.innerText = 'Hiển thị thêm';
-                } else {
-                    showMoreButton.innerText = 'Thu gọn';
-                }
-            });
+
         })
+        showMoreButton.addEventListener('click', function () {
+            productTable.classList.toggle('hide');
+            if (productTable.classList.contains('hide')) {
+                showMoreButton.innerText = 'Hiển thị thêm';
+            } else {
+                showMoreButton.innerText = 'Thu gọn';
+            }
+        });
     })
 </script>

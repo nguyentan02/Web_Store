@@ -17,7 +17,10 @@ router.post('/createProduct', productController.createProduct)
 router.get('/product/:id/edit', productController.editProduct)
 router.put('/products/:id', productController.updateProduct)
 router.delete('/deleted/:id', productController.deleteProduct)
+router.get('/search', productController.searchProduct)
 
 //Order
 router.get('/orders', orderController.showOrder)
+router.get('/detailOrderAdmin/:id', orderController.detailOrderAdmin)
+router.put('/submitOrder/:id', orderController.adminUpdate)
 module.exports = router

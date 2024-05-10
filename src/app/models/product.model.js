@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const mongoose_delete = require('mongoose-delete');
+function formatPrice(price) {
+    // Định dạng giá tiền thành dấu chấm phẩy và thêm VND vào sau
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " VND";
+}
 const productSchema = new Schema({
     name: {
         type: String,
@@ -52,7 +56,8 @@ const productSchema = new Schema({
     },
     price: {
         type: Number,
-        required: true
+        required: true,
+
     },
     networkSup: {
         type: String,
@@ -82,5 +87,6 @@ const productSchema = new Schema({
 }, {
     timestamps: true
 });
+
 productSchema.plugin(mongoose_delete);
 module.exports = mongoose.model('Product', productSchema);

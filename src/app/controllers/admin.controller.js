@@ -5,7 +5,6 @@ const fs = require('fs');
 
 const { mutipleMongooseToObject, mongooseToObject } = require('../../utils/mongoose');
 
-
 async function index(req, res, next) {
     res.render('admin/index',)
 }
@@ -20,6 +19,16 @@ async function showCategory(req, res, next) {
             next(error);
         });
 }
+// async function showHome(req, res, next) {
+//     Category.find({})
+//         .lean()
+//         .then((category) => {
+//             res.render("partials/header", { category });
+//         })
+//         .catch((error) => {
+//             next(error);
+//         });
+// }
 const uploadDirectory = './uploads';
 
 if (!fs.existsSync(uploadDirectory)) {
